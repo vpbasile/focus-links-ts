@@ -41,10 +41,10 @@
     },
     {
         "uid": "006",
-        "name": "Style the checkboxes",
+        "name": "Checkboxes",
         "url": "",
-        "description": "They look silly in silver.",
-        "completed": false,
+        "description": "Give them a background color.  They look silly in silver.  Tasks also need to display thier descriptions.  They also display a checkmark when they are completed.",
+        "completed": true,
         "projectId": "005"
     },
     {

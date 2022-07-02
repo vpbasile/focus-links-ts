@@ -13,14 +13,17 @@ function App(): JSX.Element {
   // <> App globals
   const colors = ['orange', 'blue', 'green', 'red', 'purple'];
   let currentColor = 0;
+  // <> App states
+  const [projectsState, setProjectsState] = React.useState(projects);
+  const [tasksState, setTasksState] = React.useState(tasks);
 
-  //<> Generate the list of projects
+  //<> Display the list of projects
   const projectList = projects.map(project => {
     // <> Project globals
     let projectKey = `project-${project.uid}`;
     let projectHue = colors[currentColor++ % colors.length];
     // <> For each project, get the tasks
-    let projectTodos = tasks.filter(task => task.projectId === project.uid);
+    let projectTodos = tasksState.filter(task => task.projectId === project.uid);
     // <> Render the project
     return (<Project
       key={projectKey}
@@ -38,12 +41,20 @@ function App(): JSX.Element {
       <div className="row">
         <div className="col-12">
           <header className="App-header">
-            <h1>Focus-Links (typeScript edition)</h1>
+            <h1 className='m-2'>Focus-Links (typeScript edition)</h1>
           </header>
         </div>
       </div>
       <div id="app-row" className="row">
         {projectList}
+        <Project
+          key={`project-add`}
+          uid={`project-add`}
+          title={`Add a task`}
+          hue={"gray"}
+          description={`Add a task to a project`}
+          todos={[]}
+        />
       </div>
     </div>
   );
