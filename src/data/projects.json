@@ -1,0 +1,34 @@
+[
+	{
+		"uid": "005",
+		"title": "Project: Focus-Links",
+		"subtitle": "A simple React App for keeping things simple.",
+		"description": "Displays a to-do list separated by projects",
+		"url": "",
+		"tags": "react, typescript, bootstrap"
+	},
+	{
+		"uid": "002",
+		"title": "Project: Trivial-Endeavor",
+		"subtitle": "",
+		"description": "A trivia game."
+	},
+	{
+		"uid": "003",
+		"title": "Project: Marina",
+		"subtitle": "How I learned to travel.",
+		"description": "A travel story."
+	},
+	{
+		"uid": "004",
+		"title": "Project: X12-Parse",
+		"subtitle": "",
+		"description": "A parser for X12 EDI files."
+	},
+	{
+		"uid": "001",
+		"title": "Project: Schmincenzo",
+		"subtitle": "",
+		"description": "A blog about making and traveling."
+	}
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "id": "todo-0",
+        "name": "Google Something",
+        "url": "https://www.google.com",
+        "description": "Search for something on Google.",
+        "completed": true,
+        "projectId":"001"
+    },
+    {
+        "id": "todo-1",
+        "name": "Write an Email",
+        "url": "",
+        "description": "",
+        "completed": false,
+        "projectId":"001"
+    },
+    {
+        "id": "todo-2",
+        "name": "Repeat",
+        "url": "",
+        "description": "",
+        "completed": false,
+        "projectId":"001"
+    }
+]
