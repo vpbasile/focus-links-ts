@@ -14,6 +14,8 @@ export default function Project(props: {
 		completed: boolean,
 		projectId: string
 	}[],
+	currentEditTask: string,
+	setCurrentEditTask: (value: string) => void
 }): JSX.Element {
 	const projectHue = props.hue || 'orange';
 	// <> For each project, get the tasks
@@ -26,17 +28,23 @@ export default function Project(props: {
 			hue={projectHue}
 			completed={todo.completed}
 			projectId={todo.projectId}
+			currentEditTask={props.currentEditTask}
+			setCurrentEditTask={props.setCurrentEditTask}
 		/>);
 	});
 	return (
-		<div className={`col-5 m-2 p-3 project-div bg-${projectHue}-dark border text-${projectHue}-bright border-${projectHue}-bright`} id={"project-"+props.uid}>
+		<div className={`col-5 m-2 p-3 project-div bg-${projectHue}-dark border text-${projectHue}-bright border-${projectHue}-bright`} id={"project-" + props.uid}>
 			<div className="project-header m-1 my-3">
 				<h2>{props.title}</h2>
 				<p>{props.description}</p>
-				<hr/>
+				
 			</div>
-			{todoList}
-			<hr/>
+			<table className="w-100">
+				<tbody>
+					{todoList}
+				</tbody>
+			</table>
+			
 
 		</div>
 	);

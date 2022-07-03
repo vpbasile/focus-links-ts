@@ -16,6 +16,7 @@ function App(): JSX.Element {
   // <> App states
   const [projectsState, setProjectsState] = React.useState(projects);
   const [tasksState, setTasksState] = React.useState(tasks);
+  const [currentEditTask, setCurrentEditTask] = React.useState('000');
 
   //<> Display the list of projects
   const projectList = projects.map(project => {
@@ -32,6 +33,8 @@ function App(): JSX.Element {
       hue={projectHue}
       description={project.description}
       todos={projectTodos}
+      currentEditTask={currentEditTask}
+      setCurrentEditTask={setCurrentEditTask}
     />);
   });
 
@@ -54,6 +57,8 @@ function App(): JSX.Element {
           hue={"gray"}
           description={`Add a task to a project`}
           todos={[]}
+          currentEditTask={currentEditTask} 
+          setCurrentEditTask={setCurrentEditTask}
         />
       </div>
     </div>
