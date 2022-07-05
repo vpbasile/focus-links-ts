@@ -23,7 +23,7 @@ export default function TaskForm(
 	let setTaskListState = props.setTaskListState;
 
 	// <> CSS
-	const formElementClasses = "bg-gray-dark text-gray-bright border-gray-bright"
+	const formElementClasses = "bg-gray-dark text-gray-bright border-gray-bright w-100"
 
 	// For every aspect of a todo, we need a temp state to store the new value
 	const [tempName, setTempName] = useState(props.defaultName);
