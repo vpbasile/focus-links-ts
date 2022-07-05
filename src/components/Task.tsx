@@ -10,6 +10,10 @@ export default function Task(props: {
 	projectId: string,
 	currentEditTask: string,
 	setCurrentEditTask: (value: string) => void
+	deleteTask: (taskId: string) => void
+	completeTask: (taskId: string) => void
+	uncompleteTask: (taskId: string) => void
+
 }): JSX.Element {
 	//<> Cache the props
 	const uid = props.uid;
@@ -18,19 +22,16 @@ export default function Task(props: {
 	//We don;t want blak descriptions
 	if (description === "") { description = "-" }
 	// let checkBox = <input className={`form-check-input me-3 p-1 bg-${hue}-bright `} id={"todo-cb-" + uid} type="checkbox" />;
+	let completeTask = props.completeTask;
+	let uncompleteTask = props.uncompleteTask;
 
 	//<> State management
 	const [isEditing, setEditing] = useState(false);
-	const [newName, setNewName] = useState('');
 
 	// Text for the buttons
 	const editText = ".Edit.";
 	const finishText = "Finish";
-	// const deleteText = "Delete";
-	// const checkmark = "\u2713";
 	const completeText = "!Done!";
-	// const incompleteText = "\u2751";
-	const incompleteText = "------"
 
 	function taskName() {
 		let taskName = <label className="form-check-label h5" htmlFor={"todo-cb-" + uid}>{props.name} [{props.uid}]</label>
@@ -42,28 +43,19 @@ export default function Task(props: {
 
 	}
 
-	function completeTask() {
-		// Set completed to true
-		console.log("completeTask");
-	}
-
-	function uncompleteTask() {
-		// Set completed to false
-		console.log("uncompleteTask");
-	}
 
 	function completeButton() {
 		if (props.completed) {
 			// If it's complete, display Done.  You can click it to uncomplete the task.
 			return <button
 				className="btn lh-lg me-3 p-1"
-				onClick={() => uncompleteTask()}>{completeText}
+				onClick={() => uncompleteTask(uid)}>{completeText}
 			</button>;
 		} else {
 			// If it's incomplete, display the finish button
 			return <button
 				className={`btn lh-lg bg-${hue}-bright text-${hue}-dark border-gray-dark me-3 p-1`}
-				onClick={() => completeTask()}
+				onClick={() => completeTask(uid)}
 			>.Todo.</button>;
 		}
 	}
@@ -81,31 +73,16 @@ export default function Task(props: {
 
 	}
 
-	// function editButton(): JSX.Element {
-	// 	// If task 000 is being edited ("Reading mode", which is most of the time), enable the edit button
-	// 	if (props.currentEditTask === "000") {
-	// 		return (
-	// 			<button className="btn me-3 p-1" onClick={() => props.setCurrentEditTask(uid)}>
-	// 				{/* onClick={() => props.setCurrentEditTask(uid)} */}
-	// 				{editText}
-	// 			</button>
-	// 		);
-	// 	} else {
-	// 		// If this task is currently being edited, show the finish button
-	// 		if (props.currentEditTask === uid) {
-	// 			return <button className="btn bg-orange-bright text-orange-dark border-gray-dark me-3 p-1" onClick={() => props.setCurrentEditTask("")}>{finishText}
-	// 			</button>;
-	// 		} else {
-	// 			// If none of thos are true...
-	// 			// ...then another task is being edited, so disable the edit button
-	// 			return <button className="btn bg-gray-dark me-3 p-1" disabled>{editText}</button>;
-	// 		}
-	// 	}
-	// }
+	function deleteButton() {
+		return <button
+			className={`btn lh-lg me-3 p-1`}
+			onClick={() => props.deleteTask(uid)}>Delete</button>
+
+	}
 
 	return (
 		<React.Fragment>
-			<tr><td colSpan={2}><hr/></td></tr>
+			<tr><td colSpan={2}><hr /></td></tr>
 			<tr>
 				<td>
 					{completeButton()}
@@ -115,10 +92,10 @@ export default function Task(props: {
 				</td>
 			</tr>
 			<tr>
-				<td>{editButton()}</td>
+				<td>{editButton()} {deleteButton()}</td>
 				<td className="text-center">{description}</td>
 			</tr>
-			
+
 		</React.Fragment>
 	);
 }

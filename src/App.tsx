@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 // <> Components
 import Project from '../src/components/Project';
+import TaskForm from './components/TaskForm';
 
 // <> Project data
 import projects from '../src/data/projects.json';
@@ -14,9 +15,36 @@ function App(): JSX.Element {
   const colors = ['orange', 'blue', 'green', 'red', 'purple'];
   let currentColor = 0;
   // <> App states
-  const [projectsState, setProjectsState] = React.useState(projects);
-  const [tasksState, setTasksState] = React.useState(tasks);
-  const [currentEditTask, setCurrentEditTask] = React.useState('000');
+  const [projectsState, setProjectsState] = useState(projects);
+  const [taskListState, setTaskListState] = useState(tasks);
+  const [currentEditTask, setCurrentEditTask] = useState('000');
+
+  // <> App functions
+  function deleteTask(uid: string): void {
+    console.log(`Deleting task ${uid}`);
+    const newTasks = taskListState.filter(task => task.uid !== uid); // Make this currentEditTask if we only want to be able to delete that one
+    setTaskListState(newTasks);
+  }
+
+  function completeTask(uid:string) {
+		// Set completed to true
+    const newTasks = taskListState.map(task => { 
+      if (task.uid === uid) { task.completed = true; }
+      return task;
+    });
+    setTaskListState(newTasks);
+	}
+
+	function uncompleteTask(uid:string) {
+		// Set completed to false
+    const newTasks = taskListState.map(task => {
+      if (task.uid === uid) { task.completed = false; }
+      return task;
+    });
+    setTaskListState(newTasks);
+	}
+
+  // UI Functions
 
   //<> Display the list of projects
   const projectList = projects.map(project => {
@@ -24,7 +52,7 @@ function App(): JSX.Element {
     let projectKey = `project-${project.uid}`;
     let projectHue = colors[currentColor++ % colors.length];
     // <> For each project, get the tasks
-    let projectTodos = tasksState.filter(task => task.projectId === project.uid);
+    let projectTodos = taskListState.filter(task => task.projectId === project.uid);
     // <> Render the project
     return (<Project
       key={projectKey}
@@ -35,6 +63,9 @@ function App(): JSX.Element {
       todos={projectTodos}
       currentEditTask={currentEditTask}
       setCurrentEditTask={setCurrentEditTask}
+      deleteTask={deleteTask}
+      completeTask={completeTask}
+      uncompleteTask={uncompleteTask}
     />);
   });
 
@@ -50,18 +81,24 @@ function App(): JSX.Element {
       </div>
       <div id="app-row" className="row">
         {projectList}
-        <Project
-          key={`project-add`}
-          uid={`project-add`}
-          title={`Add a task`}
-          hue={"gray"}
-          description={`Add a task to a project`}
-          todos={[]}
-          currentEditTask={currentEditTask} 
-          setCurrentEditTask={setCurrentEditTask}
-        />
+        <div id="project-new"
+          className={`col-5 m-2 p-3 project-div bg-gray-dark border text-gray-bright border-gray-bright`} >
+          <div className="project-header m-1 my-3">
+            {/* {buildNewTaskForm()} */}
+            <TaskForm
+              key='0'
+              projectsState={projectsState}
+              taskListState={taskListState}
+              setTaskListState={setTaskListState}
+              defaultName='New Task'
+              defaultUrl=''
+              defaultDescription='Enter a description'
+              defaultProjectId={projectList[0].props.uid}
+            />
+          </div>
+        </div>
       </div>
-    </div>
+    </div >
   );
 }
 
